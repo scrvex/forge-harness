@@ -7,7 +7,7 @@
 | | |
 |---|---|
 | 🎞 Презентація, 3 хв | [слайди онлайн](https://claude.ai/artifact/ViWBVwNwknhzJPxPpd9V4k) · [PDF у цьому репозиторії](presentation.pdf) |
-| 🎬 Ролик-кейс, 75 с | [дивитися](docs/media/mono_case.mp4) — зібрала моушн-студія, один із підпроєктів ([як](#приклад-підпроєкту--моушн-студія)) |
+| 🎬 Ролик-кейс, 75 с | [дивитися](https://cdn.jsdelivr.net/gh/scrvex/forge-harness@main/docs/media/mono_case.mp4) — зібрала моушн-студія, один із підпроєктів ([як](#приклад-підпроєкту--моушн-студія)) |
 | 🛒 Продукт, зроблений цією системою | [meshease.io](https://meshease.io) — плагін для Adobe Illustrator, старт продажів 6 грудня |
 | ⚙️ Як влаштована система | ця сторінка ↓ |
 | 💻 Код системи | папка [`00_FORGE/`](00_FORGE) · 498 тестів: `python3 -m unittest discover -s 00_FORGE/tests` |
@@ -98,9 +98,9 @@ $274 для приватних покупців і $658 для малого бі
 
 ## Приклад підпроєкту — моушн-студія
 
-[![Ролик-кейс: Forge → MeshEase (уривок; повний ролик — за посиланням)](docs/media/mono_case_preview.gif)](docs/media/mono_case.mp4)
+[![Ролик-кейс: Forge → MeshEase (уривок; повний ролик — за посиланням)](docs/media/mono_case_preview.gif)](https://cdn.jsdelivr.net/gh/scrvex/forge-harness@main/docs/media/mono_case.mp4)
 
-[Повний ролик зі звуком, 75 с (MP4)](docs/media/mono_case.mp4)
+[Повний ролик зі звуком, 75 с (MP4)](https://cdn.jsdelivr.net/gh/scrvex/forge-harness@main/docs/media/mono_case.mp4)
 
 Ролик зібрала моушн-студія — один із підпроєктів, що робить відео кодом із бібліотек, без ручного монтажу.
 - Ролик 75 с, 1920×1080, 60 к/с: React-сцени на Remotion 4.0.542, одне полотно, камера по ключах, темп задає «карта часу».
