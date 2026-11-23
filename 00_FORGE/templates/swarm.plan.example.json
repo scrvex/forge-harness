@@ -1,0 +1,53 @@
+{
+  "_comment": "Swarm manifest (K26): the lead writes this BEFORE any worker starts. One entry per file, chain order. goal+tasks+context+dod = the worker's entire brief. Scriptable DoD lines: 'must contain:', 'no:', 'regex:', 'json:', 'min_kb:', 'max_kb:'; every other line goes to the one reviewer pass. Save as <circle>/plans/<cycle>.json; size with swarm_probe.py --manifest; accept with swarm_accept.py. estimate_tokens = the Lead's expected Claude tokens for the whole cycle (Lead + agents); order.py close compares it with the actual total (R-37).",
+  "cycle": "N010",
+  "mode": "pipeline",
+  "estimate_tokens": "400k",
+  "checks": [
+    "python 01_PROJECT_CORE/tools/site_check_decisions.py"
+  ],
+  "files": [
+    {
+      "path": "01_PROJECT_CORE/circle/answers/N010_facts.md",
+      "tier": "LOCAL",
+      "executor": "ollama:extract",
+      "goal": "Facts with page marks extracted from the source report",
+      "tasks": [
+        "extract 2 pages per chunk",
+        "keep the (стр. N) marks",
+        "drop bullets without a page mark"
+      ],
+      "context": [
+        "02_Для_пользователя/00_Исходники/report.txt"
+      ],
+      "dod": [
+        "regex: \\(стр\\. \\d+\\)",
+        "min_kb: 8",
+        "max_kb: 64"
+      ],
+      "depends_on": []
+    },
+    {
+      "path": "02_Для_пользователя/01_Стратегия/Документ.md",
+      "tier": "HEAVY",
+      "executor": "claude",
+      "goal": "Owner-facing decision memo built from the extracted facts",
+      "tasks": [
+        "structure: situation, options, recommendation",
+        "every number cites a page mark"
+      ],
+      "context": [
+        "01_PROJECT_CORE/circle/answers/N010_facts.md"
+      ],
+      "dod": [
+        "must contain: Рекомендации",
+        "no: Patreon",
+        "min_kb: 4",
+        "reads like a decision memo, not a template"
+      ],
+      "depends_on": [
+        "01_PROJECT_CORE/circle/answers/N010_facts.md"
+      ]
+    }
+  ]
+}

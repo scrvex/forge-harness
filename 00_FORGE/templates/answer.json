@@ -1,0 +1,10 @@
+{
+  "order": "N000",
+  "executor": "lead | ollama:<model> | subagent:<name>",
+  "tier": "LEAD",
+  "status": "done | partial | failed",
+  "files_changed": [],
+  "summary": "one paragraph, facts only, no prose",
+  "checks": ["what the executor verified itself"],
+  "when": "YYYY-MM-DD HH:MM"
+}

@@ -1,0 +1,29 @@
+{
+  "name": "forge",
+  "version": "1.2.0",
+  "description": "Forge - a method layer for complex recurring work and code on top of Claude Code / Cowork: interview -> plan -> orders with DoD and a quality bar -> execution by the cheapest fitting actor -> two-family verification with evidence -> lessons that become guards. Claude leads (DoD, plan, architecture, judgement); executors are chosen by both plans' limits (Codex CLI in patch mode or Claude agents); Ollama does free grunt work. Autonomous runs, a compaction handoff, behavioural evals, a native swarm workflow, the code canon, Serena + Context7, deterministic code checks, a progress band. Skills map routes every domain to one primary skill per stage.",
+  "author": {
+    "name": "Demid"
+  },
+  "keywords": [
+    "autonomous",
+    "chatgpt",
+    "code",
+    "codex",
+    "context7",
+    "evals",
+    "guards",
+    "harness",
+    "lessons",
+    "ollama",
+    "orders",
+    "process",
+    "review",
+    "routing",
+    "serena",
+    "skills",
+    "verification",
+    "waves",
+    "workflows"
+  ]
+}

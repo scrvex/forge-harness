@@ -1,0 +1,184 @@
+{
+  "kernel_version": "1.2.0",
+  "updated": "2026-10-17",
+  "changelog": [
+    {
+      "version": "0.1.0",
+      "date": "2026-09-17",
+      "what": "first kernel: constitution, circle, templates, 6 gates, runner, order/journal/lesson/session scripts"
+    },
+    {
+      "version": "0.1.1",
+      "date": "2026-09-17",
+      "what": "VISION edits #2: brief.md = interview until complete + play-back; GUIDE.ru.md user-guide template; instantiate copies it; K19 wording; K11 registry fields"
+    },
+    {
+      "version": "0.2.0",
+      "date": "2026-09-17",
+      "what": "R1-R6 after 10-niche trials: deliverable language = user's; Context vs Deliverable in orders, output/ path; K8 same-actor refusal at close; auto-lessons on CHANGES/red gates; RU interview + HELLO template; no invented numbers in GUIDE"
+    },
+    {
+      "version": "0.2.1",
+      "date": "2026-09-17",
+      "what": "K22 context hunger (ask for missing data, propose workarounds); report template section; LaTeX normalisation in local_exec; console UTF-8 in all tools; instantiate inherits git identity"
+    },
+    {
+      "version": "0.3.0",
+      "date": "2026-09-17",
+      "what": "Owner's layout: configurable forge.json layout (tech folder 00_Forge, numbered user folders in the user's language, reading folder with guide/reports as md+pdf); instantiate/forge/trial/gates/tools layout-aware; md2pdf.py; relayout.py; CLAUDE/GUIDE templates with path placeholders; default deliverable in the reading folder"
+    },
+    {
+      "version": "0.4.0",
+      "date": "2026-09-17",
+      "what": "Three levels: Core 1 immutable copy + MANIFEST.json + gate_kernel; Core 2 = project core (learns); modes cheap/expensive asked before the first order; layout 00_FORGE / 01_Ядро_проекта / 02_Для_пользователя; kernel proposals file"
+    },
+    {
+      "version": "0.4.1",
+      "date": "2026-09-18",
+      "what": "CP1 after cycles 2-3 audit: R13 tier per order from the plan; R14 --sources normalised (LF/UTF-8), split > 60 KB, excluded from gates, _INDEX.md; R15 verify_facts.py + review_lang.py; R23 project.json from instantiate + order.py sync + dashboard at bootstrap; R25 order.py done (answer+report+close+commit); R31 check_file.py + PostToolUse hook in new projects; R20 step.py release-aware; K8/K20/K25 wording; 16 tests"
+    },
+    {
+      "version": "0.4.2",
+      "date": "2026-09-18",
+      "what": "Claude Code harness (audit §7): skills.py installs .claude/skills (forge-rules index + forge-new/done/review/handover/audit + auto-<phrase> per automation), .claude/agents (verifier2, executor-fast), hooks (SessionStart step --brief, PostToolUse check_file, Stop reminder); step.py --brief / rule Kn / --stop-check; verify.py (Verifier 1 rubric) + automatic summary after local_exec (cascade threshold); lesson.py requires --evidence"
+    },
+    {
+      "version": "0.4.3",
+      "date": "2026-09-18",
+      "what": "Owner's clarification: Ollama = inter-agent tool without quality loss; quality-critical work stays with Claude (K25 rewritten). Skills forge-route (executor + Claude skill per task type) and forge-direct (one-shot creative/code path); quality bar section in every order (--quality, plan.quality) judged by verify.py; audit section 8 'Forge vs direct Claude'; planner prompt: LOCAL only for boilerplate"
+    },
+    {
+      "version": "0.5.0",
+      "date": "2026-09-18",
+      "what": "CP2+CP3 from the cycles 2-3 audit: R16 --by-section, R17 md2pdf, R18 pdf2text, R21 external->AWAITING_OWNER, R22 metrics.jsonl, R24 --verified-by, R26 parallel LOCAL + queue.py + forge new --run-local, R27 plan.example + schema, R28 serve/check_html, R30 bench.py + retro.py + release gate, R32 verify2.py (DeepSeek/Gemini key-gated), gate_lessons at close, small model gemma3:4b for classify, packs/_template (R7)"
+    },
+    {
+      "version": "0.6.0",
+      "date": "2026-09-18",
+      "what": "Decision B: Forge = Claude Code / Cowork plugin (skills + hooks/gates + 11 scripts). Removed: manifest + gate_kernel, gate_registry, metrics, bench, queue, retro, verify2, release, relayout, dashboard, draw_*, svgkit, pdf2text, serve, skills installer, instantiate, forge.py/trial.py (archived in FORGE_0.3 + git). New: .claude-plugin/plugin.json, hooks/hooks.json, init_project.py (plan -> project), step.py mode|end, forge-route 'which system' table. Core 1 no longer copied into projects; forge.json records the plugin version."
+    },
+    {
+      "version": "0.7.0",
+      "date": "2026-09-20",
+      "what": "Swarm + machine auto-tune (ank-launch spec + R-17/18/20/22/23/24): machine.py probes the PC per session and tunes models/slots/threads (K28, brief line); swarm_probe/swarm_accept (manifest -> staging -> scripted end-of-cycle acceptance -> atomic apply, K26-K27); skill forge-swarm; bench_threads (GPU/CPU evidence); verify.py routes by deliverable type (code/multi-file -> SKIP); order.py amend with journal; RU-language gate skips Core-2 files; init_project pre-excludes publish/build/dist/bin/node_modules; order template allows en for code/websites; templates/swarm.plan.example.json; tests/test_swarm.py. TODO 0.7.1: order.py --manifest integration, Stop-hook acceptance."
+    },
+    {
+      "version": "0.7.1",
+      "date": "2026-09-20",
+      "what": "Swarm as the structure's logic (owner): swarm_probe.decide() - the K26 optimality check (breakeven ~3 separable files, machine-slot caps, bulk->map-reduce, research only after owner yes); order.py new prints the decision hint for HEAVY/LEAD units; forge-route step 0 = single-or-swarm for every unit; K26 wording; verify.py suffix-only routing fix (multi-file text deliverables reviewed again); tests for decide()."
+    },
+    {
+      "version": "0.8.0",
+      "date": "2026-10-05",
+      "what": "Two model families (owner 2026-10-05; audit of 68 orders + pilot N008): Claude does all important work and checks it (verifier2), ChatGPT via Codex CLI is only an independent expert - rung-3 audit of important orders (advisory, triaged), advice, fact checks, raster images (tier GPT); never leads (order.py refuses inside Codex; AGENTS.md role file per project). K3/K4/K8/K12/K14/K15 reworded, new K29-K31. order.py: K8 by family, R24/K31 reads verdicts from evidence files (_review.json, _review_v2.md, _review_gpt.json), --important/--rung3/--rung3-skip/--overrule/--fixes, hold/block need a reason, commits only the order's files with the real executor's trailer. New tools gpt_bridge, verify_gpt (audit/factcheck/advise), gpt_media (images), gpt_setup (forge.json gpt + AGENTS.md + owner deny list); init_project --gpt; skill forge-gpt; forge-review/route/rules/done/new updated; templates AGENTS.project.md, report rung 3; step.py end commits only session files, end --help fixed (R-42), brief shows ChatGPT; md2pdf refuses non-PDF output; gate_state lets GPT run alongside like LOCAL."
+    },
+    {
+      "version": "0.9.0",
+      "date": "2026-10-08",
+      "what": "skills map (K32-K33): domains.json (11 domains, one primary skill per stage, quality bars, verify-by-running, conflict rules, 5 combos); skills_map.py detect/show/audit/vet; gates/check_figures.py; order.py --domain + forge.json domains; forge-route rebuilt; vetted external candidates wait for the owner's yes"
+    },
+    {
+      "version": "0.9.1",
+      "date": "2026-10-08",
+      "what": "owner's yes: external skills installed after vet - frontend-design (frontend visual direction), gsap-skills plugin (motion build), InvestSkill fact-check + 10k-digest (invest verification / primary sources; their rating block suppressed); provenance in domains.json third_party.installed; vet: name optional, licence up to the repo root; tool checks find standard install folders (Node, Blender); Node.js 24 LTS and Blender 5.2 installed"
+    },
+    {
+      "version": "0.9.2",
+      "date": "2026-10-08",
+      "what": "K34 evidence discipline (owner's yes after the deck review 'Пайплайн, который учится' + N012 live runs): verbatim request / hypothesis + 5-line decision + deliberately-not-done; scope snapshot at take, undeclared changes listed at close, L010 refusal of missing paths, answer --status blocked (also Ollama); templates/evidence.md + audit evidence gaps; Stop hook runbook; upgrade.py (R-28) and replay.py; CLAUDE.project.md sections Swarm, Skills map, Evidence discipline (R-46); check_figures negation adjacent (table cells are clauses); check_html --seo; language check on .md and a declared .txt; verify_gpt records tree changes"
+    },
+    {
+      "version": "0.9.3",
+      "date": "2026-10-11",
+      "what": "R-37 Claude tokens per order (cycle audit 2026-10-05: metrics removed in 0.6.0, estimates off ~3x): tools/usage.py - ledger answers/N_usage.json; hook on finished Agent calls (PostToolUse exact totals for foreground agents, SubagentStop transcript for background ones, marked approx) books tokens to the first open order named in the prompt (id or file name), else the session's last named order, else the current order if it is the one TAKEN and taken < 24 h ago, else an unassigned log; per-file locks for parallel agents; stdin read as UTF-8 bytes; order.py usage / answer / done --usage block or --tokens (deduplicated with the hook), new/amend --estimate (or a swarm manifest's estimate_tokens), close prints and journals total vs estimate; step.py end --tokens books the Lead's estimate only when one order can own it; brief tokens line (the 16-line cut keeps next:); usage.py report for forge-audit; skills forge-done/swarm/review/audit, K10; N020: the meter's source is the Claude Code transcripts (tools/transcripts.py) - close scans the sessions that worked on the order: the Lead's requests in its window (order.py commands) and its agents (named / spawned / window), per-request usage with the last row per message id, spend in input-token units by model; hook, hand and estimated runs they cover are superseded; usage.py scan; tests never read the real Claude home; N021: verifier re-check rule - resume the same verifier only within 5 minutes of its last activity (warm cache), else a fresh verifier2 with the previous findings, the fix list and paths (191 runs measured: 36 cold resumes, 4.7M units; global 1 h TTL +15%, not set); N022: agent forge:researcher (explicit tools Read/Grep/Glob/WebSearch/WebFetch/Write, no model line - inherits, no silent downgrade, one named output file, <=300-token reply); forge-swarm/forge-route/forge-review use Forge agents and never general-purpose (~73k vs ~10k prompt start, 72 runs ~16.5M units of prefix); N023: skills_map.py profile <project> - domains from forge.json (else detect over CONTEXT.md and PLAN.md), plugin sets their cards use (installed skills only) vs the rest, ledger <state>/skill_profile.json with reasons and the restore step, the .claude/settings.local.json enabledPlugins snippet printed (name@marketplace from the CLI registry, else name@synced), --apply-file to a non-settings path only, --restore; never writes settings; desktop-delivered sets may ignore project settings - one-line /context test"
+    },
+    {
+      "version": "1.0.0",
+      "date": "2026-10-11",
+      "what": "owner's request 2026-10-11 (compile agent-playbook/ambatupipe and Forge, delegate more to Codex, add Serena, Context7 and the mod - 'we will make code'): tier CODEX = Codex CLI writes the code of plan tasks in waves in PATCH MODE (owner's choice 2026-10-12: read-only sandbox, full new files in the answer; tools/codex_exec.py rejects out-of-scope and Forge-state files, stages the rest, writes answers/N_T.patch; the Lead reads it and runs `apply`, which refuses files changed since the proposal; the next wave waits for applied dependencies; fix = resume the thread; evidence N_codex.json, plan N_plan.json; fallback HEAVY); K29 rewritten: Claude leads and judges, Codex executes and reviews (a Codex APPROVE is the second actor for ordinary Claude-made orders; important orders still need verifier2 whoever executed); default lane (K6: questions, read-only research, git housekeeping, memory need no order); owner's waivers recorded word for word (K19, --waive); agents investigator (Sonnet, read-only, Serena + Context7) and executor (Opus, HEAVY fallback) replace general-purpose agents; gates/check_code.py (py_compile, ruff, pyright, tsc, eslint, node --check, the project's test command); gates/gpt_guard.py (PreToolUse K15 guard for the Codex plugin and a bare codex CLI); tools/prompt_knobs.py (UserPromptSubmit: ss, waivers, codex review, autonomous); tools/setup.py (doctor/install: uv, Serena, Context7, Codex plugin, ruff, pyright, forge, forge-band); skill forge-code; domain card code rebuilt; mod forge-band (progress band above the prompt, separate plugin in the forge-dev marketplace)"
+    },
+    {
+      "version": "1.0.1",
+      "date": "2026-10-12",
+      "what": "owner's correction of 1.0.0 («ты должен сам делегировать это по-разному, опираясь на лимит»): no default executor; new K37 and tools/limits.py (Codex 5h/weekly from its session logs, Claude from the forge-band mod or set-claude; levels ok/tight/critical/exhausted; route by room left, ties by kind, K8/K15/K29/K30 above the limits; answers/N_route.json); codex_exec refuses Codex at a critical limit (FORGE_CODEX_FORCE=1); brief line with both limits; forge-band records Claude limits and shows both; K3/K5/K29, forge-route, forge-code, forge-gpt, forge-rules, templates, README, TOOLS reworded; tests/test_101.py"
+    },
+    {
+      "version": "1.1.0",
+      "date": "2026-10-13",
+      "what": "owner's yes to the 2026-10-13 review («делай все»: Claude Code ecosystem, harness engineering, ambatupipe v8.11-v8.14). Fixes: forge-code frontmatter was invalid YAML (loaded without its description); SessionStart/Stop hooks exited 1 outside a Forge project; Codex runs cut off stayed `running` (pid + deadline, reset by status/wave/fix); a code check that checked nothing was green; the next step after a failed Codex task ignored K37 (now routed, second failure = HOLD); the band hid other mods' rows; swarm tests needed the dev workspace. New: K38 lesson guards (tools/guards.py, in the K15 and file hooks), K39 evals and pruning (evals/ for claude plugin eval, audit 'what to delete'), K40 compaction handoff (band + brief after compact); K20 autonomous run (tools/autorun.py, skill forge-autonomous, Stop blocks only a run with open orders, once per state); K21 progress defined; K19 [NEEDS CLARIFICATION] markers (take refuses, amend --resolve); K35 canon skills forge-code-structure/forge-code-testing (also in Codex's prompt with project rules, prompts over 24k via stdin), test-integrity ban, background waves, Codex answer adds decisions/beyond/irreversible/memory; skills forge-instruction-writing, forge-human-explanation; reviewers: evidence table, restate-then-check; no numeric output quotas; trigger-only skill descriptions; workflows/swarm-run.js (/forge:swarm-run); tools/statusline.py (Claude limits for K37); doctor: python, hooks switched off, askUserQuestionTimeout, effort in settings env, Codex Windows sandbox setting; optional second skill scanner (FORGE_SKILL_SCANNER, SARIF); silent green gates; project CLAUDE.md 13 -> 9.8 KB; CI (.github/workflows/ci.yml). forge-band 0.2.0: compaction handoff, Claude limit guard (90% warn, 97% no new agents, resume after reset), chained band."
+    },
+    {
+      "version": "1.1.1",
+      "date": "2026-10-15",
+      "what": "1.1.0 from the GitHub branch claude/peaceful-rubin-vxsu4l plus Windows fixes found by its tests on the owner's machine (N027): the hooks read Claude Code's JSON in the Windows locale (cp1251), so Russian knobs never fired and check_file skipped every file with a Cyrillic path in projects without PYTHONIOENCODING - prompt_knobs, check_file and gpt_guard now decode stdin as UTF-8 (step.py and statusline too, for alignment: they read only ASCII fields); prompt_knobs printed the «Запустить» knob in cp1251, and gpt_guard, once it reads real Cyrillic paths, prints folder names that would go out in cp1251 (a name outside cp1251 would raise and drop the K15 deny) - its stdout and stderr are now UTF-8 (check_file already got UTF-8 output from forge_common); the second skill scanner kept the quotes of a quoted Windows path (skills_map.scanner_argv drops one matching pair, Windows only); test_110 wrote CRLF on Windows (LF now) and runs its outside-a-project negative control from a copy of the plugin, since find_root also looks above the plugin's own files; test_110.WindowsIO sends raw UTF-8 with the encoding variables unset (fails on 1.1.0)."
+    },
+    {
+      "version": "1.1.2",
+      "date": "2026-10-15",
+      "what": "the owner's «не ломай кодекс во время работы» after the Codex desktop app lockout of 2026-10-15 (AppModel-Runtime 0x80070005: %LOCALAPPDATA%\\Packages had lost SYSTEM and Administrators; suspect, not proven: Codex's elevated Windows sandbox, which Forge requests) (N028): new tools/codex_safety.py reads the folder's DACL as SDDL and compares SIDs (never localized names), and never changes an ACL; every codex_exec run/wave/fix and every gpt_bridge.run is bracketed - refused while SYSTEM or Administrators are missing, with the owner's icacls fix in Russian; ok before + broken after = the rights vanished during that run (a coincidence in time, stated as such, not as a proof) - a loud warning naming the run, an incident file (the run, the Codex binary, both SDDLs, overlapping Forge runs, tails of ~/.codex/.sandbox logs), a kernel lesson (confidence medium) in the project and a block until the owner fixes it (lifted automatically once fixed); every reading with its process id in <forge home>/codex_acl.jsonl; the guard's own lesson is kept out of the K34d write checks (codex_exec, verify_gpt); gpt_bridge re-checks in a finally; a reader error never blocks (fail-open); setup.py doctor line `packages acl` (the fix printed for the owner, never an install step); tests/test_112.py, test_kernel isolates FORGE_HOME with a healthy ACL stand-in, fake_codex FAKE_CODEX_ACL. Scratch measurement on the read-only audit path: unelevated works (shell reads, no ACL change), no override blocks every shell command. Then the owner said «делай» (N029): gpt_bridge read-only runs (audit, advice, fact check; an audit (N028) and a fact check with web search (N029) were measured, advice was not run separately - same read path) use windows.sandbox=unelevated; writing runs (gpt_media images) and codex_exec keep elevated (not measured); env FORGE_GPT_WINDOWS_SANDBOX = elevated | unelevated | none overrides (rollback; other values are ignored with a note); setup.py doctor says which mode runs where."
+    },
+    {
+      "version": "1.2.0",
+      "date": "2026-10-17",
+      "what": "the owner's request for targeted updates on ambatupipe's principles (N031, the verbatim request is in the order): tools/reconcile.py (declared state vs git facts on resume; brief line only on mismatch); order.py gates - a verifier2 verdict counts only as the first line `VERDICT: X` and newer than the declared files, `--by owner` needs `--owner-text`, `done --commit` refuses staged files outside the order's scope (`--allow-extra` names staged paths left out of the commit knowingly: the commit is by pathspec, they stay staged; journaled); codex_exec apply acceptance - tests in the patch when the task or DoD names tests, check/checks run on a temporary copy, `--skip-checks` journaled; tools/weaken_scan.py (report-only detector of weakened checks); gates/gate_docs.py (documents vs disk) and tests/test_120_corpus.py (skills and agents frontmatter and references); hook fixes - check_file silent outside a Forge project, warn-guards on write no longer block; live machine load (machine.py load: verdict + recommended slots, codex wave cap, Ollama refusal when critical, brief line, K28 extended - the Lead reads it before a swarm or parallel sub-agents, the swarm scripts do not, tests/test_120_machine_load.py); CONSTITUTION change logs moved to CHANGELOG.md, K9/K11/K14/K17/K28/K31/K35/K38 extended (K35 gets a new item (g) after the installer's (f), nothing renumbered); DECISIONS.md numbered registry."
+    }
+  ],
+  "tiers": [
+    "LOCAL",
+    "FAST",
+    "HEAVY",
+    "LEAD",
+    "GPT",
+    "CODEX"
+  ],
+  "states": [
+    "READY",
+    "RUNNING",
+    "AWAITING_OWNER",
+    "STOPPED_BY_OWNER",
+    "ENVIRONMENT_BROKEN"
+  ],
+  "order_states": [
+    "OPEN",
+    "TAKEN",
+    "HOLD",
+    "CLOSED",
+    "BLOCKED"
+  ],
+  "answer_keys": [
+    "order",
+    "executor",
+    "tier",
+    "status",
+    "files_changed",
+    "summary",
+    "checks"
+  ],
+  "lesson_keys": [
+    "id",
+    "when",
+    "project",
+    "phase",
+    "source",
+    "root_cause",
+    "fix",
+    "applies_to"
+  ],
+  "text_ext": [
+    ".md",
+    ".py",
+    ".json",
+    ".txt",
+    ".yaml",
+    ".yml",
+    ".csv",
+    ".ps1",
+    ".sh"
+  ],
+  "max_kb": 64,
+  "default_mode": "cheap",
+  "modes": [
+    "cheap",
+    "expensive"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "id": "L000",
+  "when": "YYYY-MM-DD",
+  "project": "name",
+  "phase": 0,
+  "source": "gate | review | owner | retro",
+  "what_failed": "or what_worked — one sentence with the concrete symptom",
+  "root_cause": "why, one sentence",
+  "fix": "what changes in a rule / template / gate / checklist / script",
+  "applies_to": "kernel | pack | project",
+  "confidence": "high | medium | low",
+  "evidence": "path or order id",
+  "order": "N000"
+}

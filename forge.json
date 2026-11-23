@@ -1,0 +1,8 @@
+{
+  "project": "forge-harness-demo",
+  "created": "2026-11-22",
+  "note": "Demo workspace root so the test suite runs from a fresh clone: python3 -m unittest discover -s 00_FORGE/tests",
+  "user_language": "en",
+  "mode": "cheap",
+  "gpt": "off"
+}

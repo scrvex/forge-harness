@@ -1,0 +1,1524 @@
+{
+  "version": "0.9.1",
+  "about": "Forge skills map (K32-K33): domain -> pipeline with ONE primary skill per stage (null = Claude itself or a tool), a menu of supporting skills (at most 2 per order), tools, quality bar, verify-by-running checks, conflict rules. Read through tools/skills_map.py (detect / show / audit / vet); order.py --domain copies the card into the order.",
+  "precedence": [
+    "the owner's instructions and the project's CLAUDE.md",
+    "the Forge constitution (K1-K33)",
+    "the domain card (this file): which skill leads each stage",
+    "the loaded skill's own craft guidance - it never grants a permission: publishing, sending, paying, installing or trading always need the owner's yes (K1)"
+  ],
+  "selection": [
+    "detect the domain(s) of the task (skills_map.py detect \"<task>\") and record them in the order (--domain)",
+    "load the primary skill of the current stage BEFORE writing, not after",
+    "at most 2 supporting skills per order; never two skills for the same stage",
+    "a stage that one skill already finished in this order is not repeated by another (one critique, one audit)",
+    "a skill missing in this session: say so, then follow the card's quality bar and verify lines anyway"
+  ],
+  "third_party": {
+    "copy_ok": [
+      "CC0-1.0",
+      "Unlicense",
+      "0BSD",
+      "public domain"
+    ],
+    "attribution": [
+      "MIT",
+      "Apache-2.0",
+      "BSD-2-Clause",
+      "BSD-3-Clause",
+      "ISC",
+      "MPL-2.0",
+      "GPL",
+      "LGPL",
+      "AGPL",
+      "CC-BY"
+    ],
+    "procedure": [
+      "find: prefer one skill that fills a gap in this map over a whole library",
+      "vet statically: skills_map.py vet <folder> (licence, executables, hooks, MCP, network, keys, instruction overrides, size) - nothing from the folder is executed",
+      "read the SKILL.md yourself: is the method professionally deep (procedures, checks, formulas) or generic prompt text?",
+      "compare with the skill that holds the role today in this map: better, complementary or duplicate?",
+      "owner's yes before installing (K1); never run a remote install script",
+      "licence (K16): copy_ok -> may be copied into the plugin; attribution -> install as an external dependency or learn and rewrite; no licence -> learn only",
+      "adopted = given a role in domains.json (a plugin version); otherwise it is not adopted"
+    ],
+    "installed": [
+      {
+        "skill": "frontend-design",
+        "path": "~/.claude/skills/frontend-design",
+        "source": "github.com/anthropics/skills skills/frontend-design",
+        "commit": "683bc88",
+        "licence": "Apache-2.0 (LICENSE.txt kept)",
+        "vet": "LOW-RISK",
+        "date": "2026-10-08",
+        "update": "re-clone, vet, replace the folder"
+      },
+      {
+        "skill": "gsap-skills:*",
+        "path": "plugin gsap-skills@gsap-skills (user scope)",
+        "source": "github.com/greensock/gsap-skills (marketplace gsap-skills)",
+        "commit": "aed9cfd",
+        "licence": "MIT",
+        "vet": "REVIEW: examples/ JS and package.json are never run by the plugin (plugin.json declares skills only, no hooks or MCP); install lines in prose are npm install gsap",
+        "date": "2026-10-08",
+        "update": "claude plugin update gsap-skills@gsap-skills, then vet the new cache folder"
+      },
+      {
+        "skill": "fact-check",
+        "path": "~/.claude/skills/fact-check",
+        "source": "github.com/yennanliu/InvestSkill plugins/us-stock-analysis/skills/fact-check",
+        "commit": "ac648f0",
+        "licence": "MIT (repo-root LICENSE copied next to SKILL.md)",
+        "vet": "LOW-RISK",
+        "date": "2026-10-08",
+        "update": "re-clone, vet, replace the folder"
+      },
+      {
+        "skill": "10k-digest",
+        "path": "~/.claude/skills/10k-digest",
+        "source": "github.com/yennanliu/InvestSkill plugins/us-stock-analysis/skills/10k-digest",
+        "commit": "ac648f0",
+        "licence": "MIT (repo-root LICENSE copied next to SKILL.md)",
+        "vet": "LOW-RISK",
+        "date": "2026-10-08",
+        "update": "re-clone, vet, replace the folder"
+      }
+    ]
+  },
+  "domains": {
+    "design": {
+      "name": "Visual design, brand, typography, colour, art direction",
+      "where": "one artifact -> direct Claude (forge-direct); recurring brand work with own assets -> Forge orders",
+      "triggers": [
+        "дизайн",
+        "постер",
+        "афиш",
+        "обложк",
+        "логотип",
+        "бренд",
+        "айдентик",
+        "типограф",
+        "шрифт",
+        "палитр",
+        "визуал",
+        "иллюстрац",
+        "мудборд",
+        "арт-дирекш",
+        "design",
+        "poster",
+        "cover",
+        "logo",
+        "brand",
+        "identity",
+        "typograph",
+        "font",
+        "palette",
+        "visual",
+        "illustration",
+        "moodboard",
+        "art direction"
+      ],
+      "pipeline": [
+        {
+          "stage": "brief",
+          "skill": null,
+          "do": "read the brief, brand assets, audience and channels; list formats and sizes"
+        },
+        {
+          "stage": "art direction",
+          "skill": null,
+          "do": "name 2-3 distinct directions (concept, type pairing, palette, composition principle) and pick one by the brief or with the owner"
+        },
+        {
+          "stage": "system",
+          "skill": "design:design-system",
+          "do": "type scale, colour roles, spacing scale and grid as tokens"
+        },
+        {
+          "stage": "production",
+          "skill": "anthropic-skills:canvas-design",
+          "do": "static PNG/PDF; an HTML page goes to the frontend domain (artifact-design)"
+        },
+        {
+          "stage": "critique",
+          "skill": "design:design-critique",
+          "do": "hierarchy, consistency, legibility at real size"
+        }
+      ],
+      "support": [
+        "frontend-design",
+        "anthropic-skills:algorithmic-art",
+        "marketing:brand-review",
+        "small-business:brand-style"
+      ],
+      "tools": [
+        {
+          "name": "gpt_media.py",
+          "check": null,
+          "note": "raster concepts from Claude's brief through ChatGPT (K29); needs forge.json gpt allowed"
+        }
+      ],
+      "quality": [
+        "the direction comes from the brief, the brand and the audience - not from a default house style; 2-3 directions named before one is built",
+        "typography: at most 2 families, a modular type scale, body lines of 45-75 characters, hierarchy by size, weight and space; no faux bold or italic",
+        "colour: roles defined (background, surface, text, accent, state); text contrast WCAG AA 4.5:1 (3:1 for large text); colour never carries meaning alone",
+        "composition: one grid and one spacing scale, one focal point per surface, deliberate alignment",
+        "no generic AI look: no default purple gradients, glass effects or emoji icons without a reason; every effect has a job",
+        "original work only - no imitation of a living artist or of a real brand's identity"
+      ],
+      "verify": [
+        "render the result (PNG/PDF) and look at it at 100% and at thumbnail size",
+        "measure the contrast of every text/background pair (WCAG AA)",
+        "check every format and size the brief lists; no placeholder text left"
+      ],
+      "conflicts": [
+        {
+          "items": [
+            "anthropic-skills:canvas-design",
+            "artifact-design"
+          ],
+          "rule": "canvas-design = static PNG/PDF; artifact-design = HTML pages; one per deliverable"
+        },
+        {
+          "items": [
+            "anthropic-skills:brand-guidelines",
+            "small-business:brand-style"
+          ],
+          "rule": "brand-guidelines carries Anthropic's own brand - never apply it to the owner's projects; the owner's brand comes from the brief or small-business:brand-style"
+        },
+        {
+          "items": [
+            "design:design-critique",
+            "marketing:brand-review"
+          ],
+          "rule": "design-critique judges the visuals; brand-review judges the voice of the texts"
+        }
+      ],
+      "forbidden": [
+        "copying a real brand's logo, mascot or trade dress"
+      ],
+      "gaps": [
+        {
+          "need": "brand identity book (logo suite, usage rules)",
+          "fallback": "design:design-system + canvas-design; raster concepts via gpt_media.py",
+          "candidate": null
+        }
+      ]
+    },
+    "ux": {
+      "name": "UX research, information architecture, flows, usability, accessibility",
+      "where": "an audit or a flow -> direct Claude; a product with recurring research -> Forge orders",
+      "triggers": [
+        "ux",
+        "юзабилити",
+        "пользовательск",
+        "сценари",
+        "путь пользовател",
+        "информационн",
+        "навигац",
+        "доступност",
+        "онбординг",
+        "прототип",
+        "вайрфрейм",
+        "интервью пользовател",
+        "usability",
+        "user flow",
+        "user journey",
+        "information architecture",
+        "navigation",
+        "accessibility",
+        "a11y",
+        "wcag",
+        "onboarding",
+        "wireframe",
+        "prototype",
+        "user research",
+        "heuristic"
+      ],
+      "pipeline": [
+        {
+          "stage": "research",
+          "skill": "design:user-research",
+          "do": "goals, users, jobs; interview or survey plan"
+        },
+        {
+          "stage": "synthesis",
+          "skill": "design:research-synthesis",
+          "do": "themes, insights, opportunities with evidence"
+        },
+        {
+          "stage": "architecture and flows",
+          "skill": null,
+          "do": "sitemap, task flows, states (empty, loading, error, success, no permission), edge cases"
+        },
+        {
+          "stage": "interaction and copy",
+          "skill": "design:ux-copy",
+          "do": "labels, errors, empty states, CTAs"
+        },
+        {
+          "stage": "usability and accessibility audit",
+          "skill": "design:accessibility-review",
+          "do": "WCAG 2.2 AA on the built thing"
+        },
+        {
+          "stage": "handoff",
+          "skill": "design:design-handoff",
+          "do": "specs, states, tokens for the developer"
+        }
+      ],
+      "support": [
+        "design:design-critique",
+        "artifact-diagramming"
+      ],
+      "tools": [],
+      "quality": [
+        "every screen answers: where am I, what can I do here, what happens next",
+        "flows cover empty, loading, error, success and permission states, not only the happy path",
+        "WCAG 2.2 AA: keyboard reachable, visible focus, labelled inputs, targets of at least 24x24 px, no meaning by colour alone",
+        "every finding has a severity (critical / major / minor), evidence (screen, step) and a concrete fix",
+        "conversion work changes one thing at a time and names the metric it should move"
+      ],
+      "verify": [
+        "walk the flow in the browser as a new user, including one error path",
+        "keyboard-only pass, then the accessibility tree (read_page): every control has a name",
+        "check at 375 px and at desktop width"
+      ],
+      "conflicts": [
+        {
+          "items": [
+            "design:design-critique",
+            "design:accessibility-review"
+          ],
+          "rule": "critique = hierarchy and consistency; accessibility-review = WCAG; both only in an audit, accessibility last"
+        }
+      ],
+      "forbidden": [
+        "dark patterns: hidden costs, forced continuity, confirm-shaming"
+      ],
+      "gaps": [
+        {
+          "need": "usability sessions with real people",
+          "fallback": "the owner runs 3-5 sessions with a script from design:user-research; Claude synthesises",
+          "candidate": null
+        }
+      ]
+    },
+    "frontend": {
+      "name": "Frontend: React, Next.js, TypeScript, Tailwind, components, responsive, performance, testing",
+      "where": "one page or prototype -> direct Claude (forge-direct); an app with recurring work -> Forge orders",
+      "triggers": [
+        "сайт",
+        "лендинг",
+        "страниц",
+        "веб",
+        "фронтенд",
+        "верстк",
+        "компонент",
+        "интерфейс",
+        "адаптив",
+        "веб-приложени",
+        "website",
+        "landing",
+        "web page",
+        "webpage",
+        "frontend",
+        "front-end",
+        "react",
+        "next.js",
+        "nextjs",
+        "typescript",
+        "tailwind",
+        "component",
+        "html",
+        "css",
+        "responsive",
+        "web app",
+        "lighthouse"
+      ],
+      "pipeline": [
+        {
+          "stage": "read the existing code",
+          "skill": null,
+          "do": "structure, stack, conventions, design tokens; keep the existing architecture"
+        },
+        {
+          "stage": "visual direction",
+          "skill": "frontend-design",
+          "do": "a compact plan (4-6 colours, type roles, layout, principles) reviewed against the brief before code; inside a repo with its own design system the repo wins"
+        },
+        {
+          "stage": "page contract and design-to-code",
+          "skill": "artifact-design",
+          "do": "published pages and prototypes; inside a repo the repo's conventions win"
+        },
+        {
+          "stage": "components",
+          "skill": null,
+          "do": "typed components, explicit props and state, tokens instead of magic numbers"
+        },
+        {
+          "stage": "run and test",
+          "skill": "run",
+          "do": "launch the app, see the change working, run the repo's tests"
+        },
+        {
+          "stage": "bug review",
+          "skill": "code-review",
+          "do": "correctness of the diff"
+        },
+        {
+          "stage": "cleanup",
+          "skill": "simplify",
+          "do": "reuse, simplification, efficiency - after the bug review"
+        }
+      ],
+      "support": [
+        "artifact-diagramming",
+        "dataviz",
+        "design:design-handoff",
+        "security-review"
+      ],
+      "tools": [
+        {
+          "name": "node",
+          "check": "node",
+          "note": "build and dev servers in repos",
+          "find": [
+            "%ProgramFiles%/nodejs/node.exe"
+          ]
+        },
+        {
+          "name": "npm",
+          "check": "npm",
+          "note": "",
+          "find": [
+            "%ProgramFiles%/nodejs/npm.cmd"
+          ]
+        },
+        {
+          "name": "check_html.py",
+          "check": null,
+          "note": "Forge gate for single-file HTML"
+        }
+      ],
+      "quality": [
+        "the existing architecture, stack and conventions are kept; a new framework or dependency only with a reason written in the order",
+        "semantic HTML, accessible names, keyboard support; responsive from 320 px with no horizontal scroll",
+        "performance: images sized and lazy-loaded, no layout shift, JavaScript only where it is needed, animation on transform/opacity",
+        "TypeScript types for public props and data; no any in new code",
+        "every data view handles loading, empty and error",
+        "touch targets at least 44 px on mobile (WCAG minimum 24 px); web fonts never leave text invisible while loading"
+      ],
+      "verify": [
+        "the build passes and the app runs; the browser console has no errors",
+        "screenshots at 320 px, 375 px and desktop by device emulation (the built-in browser's resize, or DevTools Emulation via CDP) - headless Chrome's --window-size does not go below 500 px (N012); every interactive element clicked through",
+        "horizontal overflow measured at about 390 px and 1024 px: document width minus viewport width = 0",
+        "single-file HTML: python <plugin>/gates/check_html.py page.html (pinned CDN scripts are a note; add --offline when the page must work without a network)",
+        "the repo's existing tests stay green; new logic gets a test where the repo has a test setup"
+      ],
+      "conflicts": [
+        {
+          "items": [
+            "code-review",
+            "simplify"
+          ],
+          "rule": "code-review finds bugs first, simplify cleans up after - never in one pass"
+        },
+        {
+          "items": [
+            "artifact-design",
+            "design:design-system"
+          ],
+          "rule": "artifact-design = the page contract of published artifacts; in an existing repo the repo's own tokens and components win"
+        },
+        {
+          "items": [
+            "frontend-design",
+            "artifact-design",
+            "design:design-system"
+          ],
+          "rule": "frontend-design = the visual direction of a new or reshaped web UI; artifact-design = the contract of a published artifact page; design:design-system = an existing system's tokens - an existing system or an explicit brief always wins over frontend-design's taste"
+        }
+      ],
+      "forbidden": [
+        "rewriting a working architecture without the owner's yes"
+      ],
+      "gaps": [
+        {
+          "need": "framework depth (Next.js app router, server components)",
+          "fallback": "official docs by web search + the repo's own patterns",
+          "candidate": "frontend-design - installed 2026-10-08 after vet and the owner's yes (N011); webapp-testing not installed (the built-in browser covers it)"
+        }
+      ]
+    },
+    "marketing": {
+      "name": "Marketing: strategy, positioning, copy, SEO, CRO, growth, launch, content",
+      "where": "routine campaigns and posts -> Cowork marketing plugins directly (decision B); recurring work with own data -> Forge orders",
+      "triggers": [
+        "маркетинг",
+        "позиционирован",
+        "копирайт",
+        "слоган",
+        "продающ",
+        "сео",
+        "ключев",
+        "конверси",
+        "рассылк",
+        "кампани",
+        "запуск продукта",
+        "контент-план",
+        "конкурент",
+        "реклам",
+        "соцсет",
+        "воронк продаж",
+        "marketing",
+        "positioning",
+        "copywriting",
+        "copy",
+        "tagline",
+        "seo",
+        "keyword",
+        "conversion",
+        "cro",
+        "newsletter",
+        "campaign",
+        "launch",
+        "content plan",
+        "competitor",
+        "growth",
+        "ads",
+        "social media"
+      ],
+      "pipeline": [
+        {
+          "stage": "market and competitor research",
+          "skill": "marketing:competitive-brief",
+          "do": "alternatives, their claims and prices, dated"
+        },
+        {
+          "stage": "positioning",
+          "skill": null,
+          "do": "target customer, the alternative they use today, unique attributes, value, proof, market category"
+        },
+        {
+          "stage": "messaging and copy",
+          "skill": "marketing:content-creation",
+          "do": "channel copy from the positioning"
+        },
+        {
+          "stage": "SEO",
+          "skill": "searchfit-seo:seo-audit",
+          "do": "site or codebase audit; keywords and briefs from the support menu"
+        },
+        {
+          "stage": "CRO",
+          "skill": null,
+          "do": "one primary CTA per screen, friction list, hypotheses with the metric each should move (with the ux domain)"
+        },
+        {
+          "stage": "campaign and launch",
+          "skill": "marketing:campaign-plan",
+          "do": "channels, calendar, owners, budget, metrics"
+        },
+        {
+          "stage": "measurement",
+          "skill": "marketing:performance-report",
+          "do": "results against the plan's metrics"
+        }
+      ],
+      "support": [
+        "searchfit-seo:keyword-clustering",
+        "searchfit-seo:content-brief",
+        "searchfit-seo:on-page-seo",
+        "searchfit-seo:technical-seo",
+        "searchfit-seo:schema-markup",
+        "searchfit-seo:ai-visibility",
+        "marketing:email-sequence",
+        "marketing:brand-review",
+        "design:ux-copy"
+      ],
+      "tools": [
+        {
+          "name": "Ahrefs / Similarweb connectors",
+          "check": null,
+          "note": "keyword volumes, traffic, backlinks - only after the owner authorises them in claude.ai"
+        }
+      ],
+      "quality": [
+        "positioning names the target customer, the alternative they use today, the unique value and the proof",
+        "copy speaks to one reader and asks for one action; benefits before features; no unverifiable superlatives",
+        "every number and claim has a source; competitor facts are dated",
+        "SEO: one search intent per page, title about 60 characters and meta description about 155 (search-result truncation, a convention), one H1, internal links, schema where it fits",
+        "CRO: one primary CTA per screen; every change is a hypothesis with the metric it should move",
+        "honest persuasion only: no fake scarcity, fake reviews or dark patterns"
+      ],
+      "verify": [
+        "count claims without a source in the copy: must be 0",
+        "SEO pages: python <plugin>/gates/check_html.py page.html --seo (title 30-60, meta description 70-160 characters, one H1 - conventions) or searchfit-seo:seo-check; a page not meant for search is n/a with that reason",
+        "launch plan: every item has an owner, a date and a metric"
+      ],
+      "conflicts": [
+        {
+          "items": [
+            "searchfit-seo:seo-audit",
+            "marketing:seo-audit",
+            "small-business:seo-ai-visibility"
+          ],
+          "rule": "site/codebase SEO audit -> searchfit-seo:seo-audit; marketing:seo-audit only inside a campaign review; small-business:seo-ai-visibility only in the small-business flow"
+        },
+        {
+          "items": [
+            "searchfit-seo:content-strategy",
+            "small-business:content-strategy",
+            "marketing:campaign-plan"
+          ],
+          "rule": "search-led content plan -> searchfit-seo:content-strategy; sales-data-led (QuickBooks/PayPal connected) -> small-business:content-strategy; a campaign -> marketing:campaign-plan"
+        },
+        {
+          "items": [
+            "marketing:content-creation",
+            "marketing:draft-content",
+            "searchfit-seo:create-content"
+          ],
+          "rule": "marketing:content-creation is primary; an SEO article for one keyword -> searchfit-seo:create-content; draft-content only when the user names it"
+        },
+        {
+          "items": [
+            "searchfit-seo:schema-markup",
+            "searchfit-seo:generate-schema",
+            "searchfit-seo:keyword-clustering",
+            "searchfit-seo:keyword-cluster",
+            "searchfit-seo:content-translation",
+            "searchfit-seo:translate-content",
+            "searchfit-seo:seo-check"
+          ],
+          "rule": "searchfit-seo ships each method twice (a skill and a slash-command form): route to the skill (schema-markup, keyword-clustering, content-translation); the command forms only when the user types them; seo-check = a quick check of one page, seo-audit = the whole site"
+        }
+      ],
+      "forbidden": [
+        "sending or publishing anything (email, posts, ads, budgets) without the owner's explicit yes (K1)"
+      ],
+      "gaps": [
+        {
+          "need": "live keyword volumes, traffic and backlinks",
+          "fallback": "connectors after the owner authorises them; otherwise volumes are marked unknown",
+          "candidate": null
+        }
+      ]
+    },
+    "motion": {
+      "name": "Motion design: UI animation, GSAP, Lottie, kinetic typography",
+      "where": "an animated page or element -> direct Claude; a motion system for a product -> Forge orders",
+      "triggers": [
+        "анимац",
+        "моушн",
+        "движени",
+        "микроанимац",
+        "кинетическ",
+        "параллакс",
+        "плавн появлен",
+        "animation",
+        "animate",
+        "motion",
+        "gsap",
+        "lottie",
+        "transition",
+        "microinteraction",
+        "kinetic",
+        "parallax",
+        "scrolltrigger",
+        "easing"
+      ],
+      "pipeline": [
+        {
+          "stage": "intent",
+          "skill": null,
+          "do": "what the motion explains: state change, hierarchy, feedback, continuity or story; motion without a job is cut"
+        },
+        {
+          "stage": "timing system",
+          "skill": null,
+          "do": "durations by distance and size, one easing family, stagger rules; animation principles where they serve"
+        },
+        {
+          "stage": "build",
+          "skill": "gsap-skills:gsap-core",
+          "do": "GSAP for timelines and scroll scenes (gsap-core, then gsap-timeline / gsap-scrolltrigger from the support menu); CSS/WAAPI for simple state transitions; Lottie for vector loops; Remotion when the output is a video"
+        },
+        {
+          "stage": "check",
+          "skill": null,
+          "do": "frames, reduced motion, performance"
+        }
+      ],
+      "support": [
+        "gsap-skills:gsap-timeline",
+        "gsap-skills:gsap-scrolltrigger",
+        "gsap-skills:gsap-react",
+        "gsap-skills:gsap-frameworks",
+        "gsap-skills:gsap-plugins",
+        "gsap-skills:gsap-utils",
+        "gsap-skills:gsap-performance",
+        "artifact-design"
+      ],
+      "tools": [
+        {
+          "name": "GSAP",
+          "check": null,
+          "note": "cdnjs in pages, npm in repos"
+        },
+        {
+          "name": "Lottie (lottie-web)",
+          "check": null,
+          "note": "vector animations from After Effects / LottieFiles"
+        },
+        {
+          "name": "node",
+          "check": "node",
+          "note": "Remotion when motion becomes video",
+          "find": [
+            "%ProgramFiles%/nodejs/node.exe"
+          ]
+        }
+      ],
+      "quality": [
+        "every animation has a job: feedback, orientation, continuity or story",
+        "UI durations of roughly 150-400 ms (common guidance, not a standard), longer travel takes longer; one easing family; exits faster than entrances",
+        "prefers-reduced-motion respected with a no-movement alternative",
+        "only transform and opacity are animated; 60 fps on an average laptop; no layout thrashing",
+        "kinetic type stays readable: each word on screen for roughly 0.3 s or more (rule of thumb)"
+      ],
+      "verify": [
+        "step through or record the animation in the browser in real time (headless --virtual-time-budget delivers no animation frames - a screenshot there proves nothing, N012); no dropped frames on the main path",
+        "emulate reduced motion and check the fallback"
+      ],
+      "conflicts": [
+        {
+          "items": [
+            "CSS/WAAPI",
+            "GSAP"
+          ],
+          "rule": "CSS/WAAPI for simple state transitions; GSAP only for sequenced timelines or scroll-driven scenes; never both on one element"
+        },
+        {
+          "items": [
+            "GSAP",
+            "Remotion"
+          ],
+          "rule": "GSAP = motion in the browser; Remotion = motion rendered to a video file"
+        },
+        {
+          "items": [
+            "gsap-skills:gsap-core",
+            "CSS/WAAPI"
+          ],
+          "rule": "gsap-skills recommends GSAP whenever no library is named; in Forge the motion card decides - CSS/WAAPI for simple state transitions, GSAP for sequenced timelines and scroll scenes; reduced motion always (gsap.matchMedia)"
+        },
+        {
+          "items": [
+            "gsap-skills:gsap-react",
+            "gsap-skills:gsap-frameworks"
+          ],
+          "rule": "pick by the project's framework: React/Next -> gsap-react; Vue/Nuxt/Svelte and others -> gsap-frameworks; plain pages -> neither. gsap-plugins (SplitText, Flip, MotionPath ...) and gsap-utils only when the effect needs them"
+        }
+      ],
+      "forbidden": [
+        "flashing more than 3 times per second (seizure risk)"
+      ],
+      "gaps": []
+    },
+    "video": {
+      "name": "Video: storyboard, editing, transitions, colour, audio, FFmpeg, Remotion, automation",
+      "where": "one clip -> direct Claude with FFmpeg/Remotion; a recurring video series -> Forge orders",
+      "triggers": [
+        "видео",
+        "монтаж",
+        "ролик",
+        "рилс",
+        "шортс",
+        "клип",
+        "раскадровк",
+        "цветокор",
+        "субтитр",
+        "озвучк",
+        "звуков",
+        "video",
+        "editing",
+        "reels",
+        "shorts",
+        "clip",
+        "ffmpeg",
+        "remotion",
+        "storyboard",
+        "color grading",
+        "colour grading",
+        "subtitles",
+        "captions",
+        "voiceover",
+        "audio"
+      ],
+      "pipeline": [
+        {
+          "stage": "creative direction and script",
+          "skill": null,
+          "do": "goal, audience, platform specs (aspect, length), script"
+        },
+        {
+          "stage": "storyboard and shot list",
+          "skill": null,
+          "do": "shots with duration, framing, on-screen text and audio cue"
+        },
+        {
+          "stage": "assets",
+          "skill": null,
+          "do": "the owner's footage; raster frames via gpt_media.py (K29); generated video by the owner in the ChatGPT app (not in Codex CLI)"
+        },
+        {
+          "stage": "edit or programmatic video",
+          "skill": null,
+          "do": "Remotion for code-driven video (data, captions, templates); FFmpeg for cuts, concat, scaling"
+        },
+        {
+          "stage": "colour and audio",
+          "skill": null,
+          "do": "FFmpeg filters: loudnorm, eq/curves or a LUT"
+        },
+        {
+          "stage": "render and QC",
+          "skill": null,
+          "do": "ffprobe, loudness pass, frames at every cut"
+        }
+      ],
+      "support": [
+        "forge:forge-gpt",
+        "dataviz"
+      ],
+      "tools": [
+        {
+          "name": "ffmpeg",
+          "check": "ffmpeg",
+          "note": "cuts, concat, transcode, loudness, colour filters"
+        },
+        {
+          "name": "ffprobe",
+          "check": "ffprobe",
+          "note": "QC of renders"
+        },
+        {
+          "name": "node",
+          "check": "node",
+          "note": "Remotion (React video)",
+          "find": [
+            "%ProgramFiles%/nodejs/node.exe"
+          ]
+        }
+      ],
+      "quality": [
+        "the platform spec is met: aspect ratio, resolution, fps, length, safe areas for captions",
+        "the first 3 seconds state the point; every cut has a reason (action, beat, information)",
+        "audio: speech intelligible, loudness normalised to the target platform's reference (about -14 LUFS integrated is common for streaming; check the platform), true peak at most -1 dBTP, no clipping",
+        "colour consistent between shots; natural skin tones",
+        "captions for speech",
+        "renders are deterministic: seeded randomness, no wall-clock time in scene code, so a re-render gives the same frames"
+      ],
+      "verify": [
+        "ffprobe the render: duration, resolution, fps, codecs and audio streams match the spec",
+        "ffmpeg loudnorm analysis pass (print_format=json) shows the target loudness",
+        "extract frames at every cut and text overlay and look at them",
+        "cuts meant to land on the beat are within about 3 frames of it (house rule)"
+      ],
+      "conflicts": [
+        {
+          "items": [
+            "Remotion",
+            "FFmpeg"
+          ],
+          "rule": "Remotion composes and renders scenes from code; FFmpeg processes media (trim, concat, transcode, loudness); a Remotion render still goes through the FFmpeg QC"
+        }
+      ],
+      "forbidden": [
+        "footage, music or fonts without a licence for this use"
+      ],
+      "gaps": [
+        {
+          "need": "a Remotion skill",
+          "fallback": "the Remotion docs + Claude",
+          "candidate": "Vincentwei1021/video-shotcraft (Apache-2.0; heavy: Remotion, Chrome, ffmpeg, librosa) - vetted 2026-10-08 (summary-level), needs the owner's yes (K33); remotion-dev/skills has no licence file -> learn only; Remotion itself needs a paid company licence above 3 employees"
+        },
+        {
+          "need": "AI video generation",
+          "fallback": "the owner generates in the ChatGPT app from Claude's storyboard",
+          "candidate": null
+        }
+      ]
+    },
+    "3d": {
+      "name": "3D: Blender, Three.js, modelling, materials, lighting, camera, rendering, compositing",
+      "where": "one scene or render -> direct Claude; an asset pipeline -> Forge orders",
+      "triggers": [
+        "3d",
+        "3д",
+        "трёхмерн",
+        "трехмерн",
+        "блендер",
+        "моделирован",
+        "3d-модел",
+        "материал",
+        "освещени",
+        "рендер",
+        "процедурн",
+        "композитинг",
+        "blender",
+        "three.js",
+        "threejs",
+        "webgl",
+        "modeling",
+        "modelling",
+        "lighting",
+        "render",
+        "procedural",
+        "compositing",
+        "gltf"
+      ],
+      "pipeline": [
+        {
+          "stage": "direction and reference",
+          "skill": null,
+          "do": "mood, references, output (still, turntable, web scene, video)"
+        },
+        {
+          "stage": "blockout and modelling",
+          "skill": null,
+          "do": "Blender for offline 3D and procedural geometry; Three.js for browser scenes"
+        },
+        {
+          "stage": "materials and lighting",
+          "skill": null,
+          "do": "PBR materials, HDRI or three-point light, real-world scale"
+        },
+        {
+          "stage": "camera and animation",
+          "skill": null,
+          "do": "motivated, eased moves"
+        },
+        {
+          "stage": "render and compositing",
+          "skill": null,
+          "do": "Blender Cycles/EEVEE and compositor; Three.js renderer settings for the web"
+        },
+        {
+          "stage": "QC",
+          "skill": null,
+          "do": "a rendered still or a running page"
+        }
+      ],
+      "support": [
+        "artifact-design"
+      ],
+      "tools": [
+        {
+          "name": "blender",
+          "check": "blender",
+          "note": "headless builds and renders: blender -b -P script.py",
+          "find": [
+            "%ProgramFiles%/Blender Foundation/*/blender.exe"
+          ]
+        },
+        {
+          "name": "Three.js",
+          "check": null,
+          "note": "cdnjs in pages, npm in repos"
+        }
+      ],
+      "quality": [
+        "real-world scale (Blender unit = 1 metre); clean topology where the mesh deforms; a polygon budget set for the target device",
+        "PBR materials with consistent roughness and metalness; light shows where to look",
+        "camera moves are motivated and eased",
+        "web scenes: 60 fps target, geometries and textures disposed, devicePixelRatio capped at 2, a fallback without WebGL"
+      ],
+      "verify": [
+        "Blender: render a still headless (blender -b file.blend -f 1) and look at it",
+        "Three.js: open the page, watch fps and the console, resize the window"
+      ],
+      "conflicts": [
+        {
+          "items": [
+            "Blender",
+            "Three.js"
+          ],
+          "rule": "Blender = offline 3D, assets and renders; Three.js = interactive browser scenes; models travel Blender -> glTF -> Three.js"
+        }
+      ],
+      "forbidden": [
+        "models or textures without a licence for this use"
+      ],
+      "gaps": [
+        {
+          "need": "Blender control from Claude",
+          "fallback": "Blender Python scripts run with blender -b",
+          "candidate": "ahujasid/mcp-for-blender (MIT; runs arbitrary Python in Blender, telemetry on by default -> DISABLE_TELEMETRY=true, safe mode, localhost only) - vetted 2026-10-08 (summary-level), needs the owner's yes (K33)"
+        }
+      ]
+    },
+    "analytics": {
+      "name": "Analytics: validation, EDA, statistics, A/B tests, cohorts, funnels, BI, visualisation, dashboards",
+      "where": "a one-off chart -> direct Claude (dataviz); routine reports from standard tools -> Cowork; recurring analysis of own data -> Forge orders",
+      "triggers": [
+        "аналитик",
+        "данны",
+        "датасет",
+        "статистик",
+        "a/b",
+        "аб-тест",
+        "когорт",
+        "воронк",
+        "удержани",
+        "дашборд",
+        "метрик",
+        "kpi",
+        "корреляц",
+        "регресс",
+        "визуализац",
+        "график",
+        "диаграмм",
+        "analytics",
+        "data",
+        "dataset",
+        "csv",
+        "statistic",
+        "ab test",
+        "a/b test",
+        "cohort",
+        "funnel",
+        "retention",
+        "dashboard",
+        "metric",
+        "regression",
+        "correlation",
+        "eda",
+        "chart",
+        "visualization",
+        "visualisation",
+        "bi"
+      ],
+      "pipeline": [
+        {
+          "stage": "question and metrics",
+          "skill": null,
+          "do": "the decision the analysis serves; metric definitions, grain, period"
+        },
+        {
+          "stage": "data collection",
+          "skill": null,
+          "do": "the owner's files or connectors; record source, extract date and filters"
+        },
+        {
+          "stage": "validation",
+          "skill": null,
+          "do": "script: row counts, duplicates, nulls, types, ranges, units, totals against the source"
+        },
+        {
+          "stage": "EDA",
+          "skill": null,
+          "do": "distributions, outliers, segments; the script stays in the project"
+        },
+        {
+          "stage": "statistical analysis",
+          "skill": null,
+          "do": "tests with checked assumptions; effect size with a confidence interval"
+        },
+        {
+          "stage": "visualisation",
+          "skill": "dataviz",
+          "do": "chart form, palette, labels, accessibility"
+        },
+        {
+          "stage": "reporting",
+          "skill": null,
+          "do": "report in the user's language, md + pdf (md2pdf.py) or a workbook"
+        }
+      ],
+      "support": [
+        "anthropic-skills:xlsx",
+        "marketing:performance-report",
+        "finance:variance-analysis"
+      ],
+      "tools": [
+        {
+          "name": "python",
+          "check": "python",
+          "note": "pandas / scipy / statsmodels scripts kept in the project"
+        }
+      ],
+      "quality": [
+        "the question and the decision come first; every metric has a definition, a grain and a period",
+        "data validated before analysis; issues listed with counts; nothing dropped silently",
+        "statistics: assumptions checked, effect size with a confidence interval, not only a p-value; multiple comparisons corrected",
+        "A/B: hypothesis, metric and sample size fixed before the start, no peeking or early stopping, sample-ratio mismatch checked",
+        "cohorts and funnels: entry event, window and exclusions written down",
+        "every number in the report is reproduced by a script kept in the project",
+        "correlation is never presented as causation"
+      ],
+      "verify": [
+        "run the analysis script from scratch and compare its numbers with the report",
+        "tables with figures: python <plugin>/gates/check_figures.py report.md",
+        "charts follow dataviz; totals add up"
+      ],
+      "conflicts": [
+        {
+          "items": [
+            "marketing:performance-report",
+            "finance:variance-analysis"
+          ],
+          "rule": "performance-report = marketing channels; variance-analysis = budget against actual; neither replaces general statistics"
+        },
+        {
+          "items": [
+            "dataviz",
+            "anthropic-skills:xlsx"
+          ],
+          "rule": "dataviz decides the chart; xlsx builds the workbook - a chart inside a workbook still follows dataviz"
+        }
+      ],
+      "forbidden": [
+        "personal data of third parties outside the owner's machine without the owner's yes (K15)"
+      ],
+      "gaps": [
+        {
+          "need": "a statistics / A-B methodology skill",
+          "fallback": "Claude + scipy/statsmodels scripts held to the quality bar above",
+          "candidate": "nimrodfisher/data-analytics-skills (MIT; data-quality-audit, programmatic-eda, ab-test-analysis; thin SKILL.md, substance in scripts) - vetted 2026-10-08 (summary-level), needs the owner's yes (K33)"
+        }
+      ]
+    },
+    "invest": {
+      "name": "Investment analytics: filings, statements, ratios, FCF, DCF and multiples, risk, portfolio, equity research",
+      "where": "Forge orders in the owner's invest project only; never sent to ChatGPT (K15 deny list)",
+      "triggers": [
+        "инвест",
+        "отчётност",
+        "отчетност",
+        "оценк компан",
+        "мультипликатор",
+        "дивиденд",
+        "портфел",
+        "свободн денежн",
+        "денежн поток",
+        "финмодел",
+        "эмитент",
+        "invest",
+        "stock",
+        "equity",
+        "10-k",
+        "10-q",
+        "8-k",
+        "sec filing",
+        "edgar",
+        "dcf",
+        "valuation",
+        "multiples",
+        "p/e",
+        "ev/ebitda",
+        "roic",
+        "roe",
+        "roa",
+        "fcf",
+        "free cash flow",
+        "dividend",
+        "balance sheet",
+        "income statement",
+        "cash flow statement",
+        "financial model",
+        "earnings",
+        "ibkr",
+        "акционер",
+        "акции компан",
+        "ценные бумаг",
+        "investment portfolio",
+        "stock portfolio",
+        "portfolio analytics",
+        "portfolio risk"
+      ],
+      "pipeline": [
+        {
+          "stage": "primary sources",
+          "skill": "10k-digest",
+          "do": "SEC EDGAR or the regulator -> investor relations -> audited reports -> earnings releases -> reputable data vendors, in that order; record URL, filing type and date; in a 10-K read at least Item 1A (risks), 7 (MD&A), 8 (statements), 9A (controls); 8-K by item code; 10k-digest covers SEC filers (10-K, 20-F) only - other markets: the regulator's own filings, read by Claude"
+        },
+        {
+          "stage": "data extraction",
+          "skill": null,
+          "do": "a table: value, unit, currency, period, source (document and section/page), type"
+        },
+        {
+          "stage": "verification",
+          "skill": "fact-check",
+          "do": "claim ledger: every figure checked against a primary source, derived figures recomputed, verdict per claim (verified / mismatch / unverifiable / recomputed / stale), Verification Score; a fabricated citation fails the report"
+        },
+        {
+          "stage": "financial analysis",
+          "skill": null,
+          "do": "growth, margins, ROIC/ROE/ROA, FCF, leverage, working capital - each with its formula and definition"
+        },
+        {
+          "stage": "valuation",
+          "skill": null,
+          "do": "DCF (explicit WACC, terminal growth, sensitivity table) and multiples on a justified peer set with the same periods and definitions"
+        },
+        {
+          "stage": "risk",
+          "skill": null,
+          "do": "business, financial, valuation and concentration risks; bear/base/bull scenarios with stated assumptions"
+        },
+        {
+          "stage": "research report",
+          "skill": null,
+          "do": "facts, calculations, consensus and own scenarios kept apart; no rating unless the owner asks"
+        }
+      ],
+      "support": [
+        "anthropic-skills:xlsx",
+        "dataviz",
+        "finance:variance-analysis"
+      ],
+      "tools": [
+        {
+          "name": "python",
+          "check": "python",
+          "note": "extraction and recalculation scripts"
+        },
+        {
+          "name": "IBKR connector",
+          "check": null,
+          "note": "read-only use: positions, prices, history; Forge never creates order instructions, alerts or watchlist edits"
+        }
+      ],
+      "quality": [
+        "every figure: value, unit, currency, period (fiscal year or quarter with its end date) and source (document, section or page, or URL)",
+        "every line typed: fact (reported) / calculation (formula shown) / consensus (provider and date) / scenario (own assumptions)",
+        "missing data stays missing - marked 'no data', never estimated silently",
+        "formulas and definitions stated (e.g. ROIC = NOPAT / invested capital, FCF = operating cash flow - capex) and applied the same way across years and peers",
+        "DCF: WACC, terminal growth and margins explicit; a sensitivity table; the share of terminal value shown",
+        "no BUY/HOLD/SELL or price target by default - the report informs, the owner decides",
+        "the report states the data date; figures older than the latest filing are flagged as stale; a citation that cannot be found fails the report"
+      ],
+      "verify": [
+        "python <plugin>/gates/check_figures.py report.md --strict (source, period and type columns; rating words)",
+        "recompute every calculation by script from the extracted table; totals tie",
+        "spot-check 3 figures against the primary filing"
+      ],
+      "conflicts": [
+        {
+          "items": [
+            "finance:financial-statements",
+            "equity research"
+          ],
+          "rule": "finance:financial-statements prepares a company's own books (accounting close); analysis of a public company follows this domain's pipeline"
+        },
+        {
+          "items": [
+            "fact-check",
+            "10k-digest",
+            "INVESTMENT SIGNAL block"
+          ],
+          "rule": "InvestSkill skills end with a BUY/HOLD/SELL 'INVESTMENT SIGNAL' block - in Forge orders it is omitted (the card: no rating unless the owner asks; check_figures flags it); their Data & Sources header, claim ledger and References are kept"
+        },
+        {
+          "items": [
+            "10k-digest",
+            "fact-check"
+          ],
+          "rule": "10k-digest reads and digests the filing (primary sources stage); fact-check verifies the finished report's claims (verification stage) - run fact-check on the digest, not instead of it. Their node helper scripts are not installed - fetch EDGAR directly (the URLs are in both skills) or ask the owner to paste"
+        }
+      ],
+      "forbidden": [
+        "trades, order instructions, alerts or any account change through the IBKR connector - Forge never trades, the owner acts",
+        "invest data or files to ChatGPT or any cloud model other than Claude (K15 deny list)",
+        "personal buy/sell advice presented as a recommendation"
+      ],
+      "gaps": [
+        {
+          "need": "structured SEC EDGAR access",
+          "fallback": "EDGAR full-text search and the XBRL company-facts JSON (data.sec.gov) fetched by a script that sends a User-Agent",
+          "candidate": "10k-digest + fact-check (yennanliu/InvestSkill) - installed 2026-10-08 after vet and the owner's yes (N011); stock-valuation not installed (built around price targets and ratings)"
+        }
+      ]
+    },
+    "documents": {
+      "name": "Documents: reports, Word, Excel, PowerPoint, PDF",
+      "where": "one document -> direct Claude; documents of a Forge project -> its orders",
+      "triggers": [
+        "документ",
+        "отчёт для",
+        "презентац",
+        "слайд",
+        "ворд",
+        "эксель",
+        "таблицу excel",
+        "пдф",
+        "document",
+        "docx",
+        "word file",
+        "xlsx",
+        "excel",
+        "spreadsheet",
+        "pptx",
+        "slides",
+        "presentation",
+        "pdf"
+      ],
+      "pipeline": [
+        {
+          "stage": "structure",
+          "skill": null,
+          "do": "outline for the reader: purpose, sections, what the reader decides"
+        },
+        {
+          "stage": "production",
+          "skill": null,
+          "do": "by format",
+          "by_format": {
+            "docx": "anthropic-skills:docx",
+            "xlsx": "anthropic-skills:xlsx",
+            "pptx": "anthropic-skills:pptx",
+            "pdf": "anthropic-skills:pdf",
+            "md": "md2pdf.py (Forge: md + pdf for everything the owner reads)"
+          }
+        },
+        {
+          "stage": "review",
+          "skill": null,
+          "do": "verifier2 for every owner-facing document (K31)"
+        }
+      ],
+      "support": [
+        "dataviz",
+        "anthropic-skills:docs",
+        "forge:forge-human-explanation"
+      ],
+      "tools": [
+        {
+          "name": "md2pdf.py",
+          "check": null,
+          "note": "Forge: markdown to PDF with Cyrillic"
+        }
+      ],
+      "quality": [
+        "plain language of the reader; headings state the point; one idea per paragraph",
+        "every number has a source; assumptions are marked",
+        "renders without broken layout; fonts embedded; Cyrillic correct"
+      ],
+      "verify": [
+        "render or reopen the file and look at every page (PDF pages as images, docx/xlsx/pptx reopened with the library)",
+        "for the owner: md -> pdf with md2pdf.py and open the PDF"
+      ],
+      "conflicts": [
+        {
+          "items": [
+            "anthropic-skills:docs",
+            "anthropic-skills:docx"
+          ],
+          "rule": "docx only when a Word file is asked for; a living shared document -> docs"
+        },
+        {
+          "items": [
+            "anthropic-skills:pdf",
+            "pdf-viewer:view-pdf",
+            "pdf-viewer:open"
+          ],
+          "rule": "anthropic-skills:pdf produces and processes PDFs; pdf-viewer is for looking at and annotating a PDF together with the owner (view-pdf leads, open is its command form)"
+        }
+      ],
+      "forbidden": [],
+      "gaps": []
+    },
+    "code": {
+      "name": "Code: scripts, tools, automation, refactoring, tests",
+      "where": "a question -> answer (default lane); a change -> a Forge order, executor by limits (limits.py route --kind code, K37: Codex or the executor agent; skill forge-code); a one-shot artifact -> forge-direct",
+      "triggers": [
+        "скрипт",
+        "программ",
+        "баг",
+        "ошибк в коде=",
+        "рефакторинг",
+        "автоматизац",
+        "парсер",
+        "script",
+        "code",
+        "python",
+        "bug",
+        "refactor",
+        "unit test",
+        "automation",
+        "parser",
+        "cli tool",
+        "api client",
+        "код",
+        "кода=",
+        "коде=",
+        "кодом=",
+        "codebase",
+        "coding",
+        "кодов баз"
+      ],
+      "pipeline": [
+        {
+          "stage": "investigate",
+          "skill": null,
+          "do": "Serena symbols (overview, find, references) and memories (core) before whole files; Context7 for library APIs; investigator agents for question packets"
+        },
+        {
+          "stage": "plan",
+          "skill": "forge:forge-code-structure",
+          "do": "the code canon (layout, boundaries, errors, scope) before cutting tasks; DoD with runnable lines; tasks with disjoint file scopes in answers/N_plan.json (forge-code)"
+        },
+        {
+          "stage": "implement",
+          "skill": null,
+          "do": "by limits (limits.py route --kind code, K37): Codex waves in patch mode (codex_exec.py wave N, read answers/N_T.patch, apply) or the executor agent (HEAVY); architecture-shaping parts -> executor; match the surrounding code"
+        },
+        {
+          "stage": "run",
+          "skill": "forge:forge-code-testing",
+          "do": "check_code.py --order N (syntax, ruff, pyright, tsc, eslint, tests) and the change on a real input; failure triage (bug / outdated contract / flake); mutation and property checks for critical modules"
+        },
+        {
+          "stage": "bug review",
+          "skill": "code-review",
+          "do": "correctness of the diff: Codex-made -> the Lead (+ verifier2 if important); Claude-made -> verify_gpt.py (Codex)"
+        },
+        {
+          "stage": "cleanup",
+          "skill": "simplify",
+          "do": "after the bug review"
+        }
+      ],
+      "support": [
+        "security-review",
+        "anthropic-skills:skill-creator",
+        "run"
+      ],
+      "tools": [
+        {
+          "name": "python",
+          "check": "python",
+          "note": ""
+        },
+        {
+          "name": "git",
+          "check": "git",
+          "note": ""
+        }
+      ],
+      "quality": [
+        "matches the surrounding code; no new dependency without a reason",
+        "new behaviour has a test where the repo has tests",
+        "inputs validated at the boundaries; no secrets in code; errors reported, not swallowed",
+        "a Codex-made change was read by the Lead as a diff, not trusted from the summary",
+        "a failing check was fixed in the code, or the test change is named and explained (outdated contract)"
+      ],
+      "verify": [
+        "check_code.py --order N green (or each skip explained)",
+        "the change run on a real input",
+        "cross-family review on the diff before closing"
+      ],
+      "conflicts": [
+        {
+          "items": [
+            "code-review",
+            "simplify"
+          ],
+          "rule": "bugs first, cleanup after"
+        },
+        {
+          "items": [
+            "schedule",
+            "anthropic-skills:schedule"
+          ],
+          "rule": "scheduling is not Forge work (owner's rule: no scheduled tasks); either skill only when the owner asks for it by name"
+        }
+      ],
+      "forbidden": [
+        "Codex writing outside its task scope or touching git/forge state",
+        "a library API written from memory instead of Context7",
+        "a test skipped or deleted, an assertion loosened, a tolerance widened or a lint/type/test config edited to get green",
+        "a bug seen in passing fixed inside the order - it gets its own order"
+      ],
+      "gaps": []
+    }
+  },
+  "combos": [
+    {
+      "domains": [
+        "design",
+        "ux",
+        "frontend"
+      ],
+      "sequence": [
+        "ux: research, flows and states",
+        "design: direction and tokens",
+        "frontend: build",
+        "ux: accessibility audit on the built page",
+        "frontend: bug review, cleanup"
+      ],
+      "handoff": "flows and states -> tokens and layouts -> components; the accessibility audit runs on the built page, not on mockups"
+    },
+    {
+      "domains": [
+        "frontend",
+        "motion"
+      ],
+      "sequence": [
+        "frontend: static, accessible build",
+        "motion: intent and timing system",
+        "motion: build",
+        "motion: reduced-motion fallback and fps check"
+      ],
+      "handoff": "motion is added to a page that already works without it"
+    },
+    {
+      "domains": [
+        "marketing",
+        "analytics"
+      ],
+      "sequence": [
+        "analytics: metric, baseline and data validation",
+        "marketing: positioning and messaging",
+        "analytics: experiment design (A/B, sample size)",
+        "marketing: launch",
+        "analytics: result with effect size and interval"
+      ],
+      "handoff": "claims about results come only from validated data"
+    },
+    {
+      "domains": [
+        "3d",
+        "motion",
+        "video"
+      ],
+      "sequence": [
+        "video: script and storyboard",
+        "3d: assets and renders",
+        "motion: titles and transitions",
+        "video: edit, colour, audio",
+        "video: ffprobe and loudness QC"
+      ],
+      "handoff": "every stage renders to files the next stage reads; the storyboard is the contract"
+    },
+    {
+      "domains": [
+        "invest",
+        "analytics"
+      ],
+      "sequence": [
+        "invest: primary sources and extraction",
+        "analytics: validation and EDA",
+        "invest: analysis, valuation, risk",
+        "analytics: charts (dataviz)",
+        "invest: report, check_figures --strict"
+      ],
+      "handoff": "the extracted table with sources is the single source for every later number"
+    }
+  ]
+}

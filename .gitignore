@@ -1,0 +1,5 @@
+__pycache__/
+*.pyc
+01_PROJECT_CORE/
+state/
+.DS_Store

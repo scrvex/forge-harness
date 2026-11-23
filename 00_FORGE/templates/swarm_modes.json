@@ -1,0 +1,12 @@
+{
+  "_comment": "Mode per task type (K26). The audit demotes after 2 reds in a row and promotes after 2 first-time greens; the Lead may override with a reason in the order.",
+  "updated": "{{DATE}}",
+  "task_types": {
+    "one_artifact": {"mode": "single", "greens": 0, "reds": 0},
+    "one_page_html_css_js": {"mode": "single + manifest + scripted acceptance", "greens": 0, "reds": 0, "note": "HTML/CSS/JS of one page share context - not separable; a pure JS module with a spec may go to a FAST worker"},
+    "multi_page_site": {"mode": "pipeline", "greens": 0, "reds": 0},
+    "report_to_facts": {"mode": "map-reduce", "greens": 0, "reds": 0, "note": "LOCAL chunks by pages -> HEAVY merge"},
+    "owner_doc": {"mode": "generate -> critique -> fix", "greens": 0, "reds": 0},
+    "web_research": {"mode": "research fan-out", "greens": 0, "reds": 0, "note": "owner's yes first, with a cost estimate (~130-150k tokens per agent, measured 2026-09-20)"}
+  }
+}
