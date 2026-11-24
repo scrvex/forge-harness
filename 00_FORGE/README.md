@@ -27,7 +27,7 @@ history (0.6 → 1.2) lives in [`CHANGELOG.md`](CHANGELOG.md).
 │                                swarm_probe · swarm_accept · machine · bench_threads · gpt_bridge · verify_gpt · gpt_media · gpt_setup · skills_map · upgrade · replay ·
 │                                codex_exec · limits · setup · transcripts · autorun · guards · prompt_knobs · statusline (1.1.0) · codex_safety (1.1.2) · reconcile · weaken_scan · order_checks · codex_accept (1.2.0)
 ├── templates/                   order · report · DoD · brief (interview) · HELLO · HANDOVER · GUIDE (user guide, RU) · CLAUDE.project · plan.example · answer · lesson
-└── tests/ (kernel, swarm, skills map, 1.0–1.2)  python -m unittest discover -s 00_FORGE/tests -v  (CI: .github/workflows/ci.yml)
+└── tests/ (kernel, swarm, skills map, 1.0–1.2)  python -m unittest discover -s 00_FORGE/tests -v  (CI: .github/workflows/tests.yml)
 ```
 
 ## Install (once)
